@@ -288,6 +288,10 @@ class APIClient(object):
     def is_expires(self):
         return not self.access_token or time.time() > self.expires
 
+    def get_token_info(self, access_token):
+        r = _http_post('%s%s' % (self.auth_url, 'get_token_info'), access_token=access_token)
+        return r
+
     def __getattr__(self, attr):
         if '__' in attr:
             return getattr(self.get, attr)
